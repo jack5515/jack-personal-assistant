@@ -1,0 +1,37 @@
+{
+  "name": "jack-personal-assistant",
+  "version": "1.0.0",
+  "description": "Jack 的个人助理技能包 - 包含工作原则、巡检维度、定时任务、Agency Agents 专家团队集成",
+  "author": "Jack",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/jack-personal-assistant.git"
+  },
+  "main": "SKILL.md",
+  "tags": [
+    "personal",
+    "productivity",
+    "ai-agent",
+    "chinese",
+    "marketing",
+    "stock-monitoring"
+  ],
+  "capabilities": [
+    "interesting-content-scanning",
+    "weekly-briefing",
+    "agency-agents-integration",
+    "heartbeat-checks",
+    "custom-scripts"
+  ],
+  "requires": {
+    "openclaw": ">=1.0.0",
+    "env": [
+      "STEPFUN_API_KEY"
+    ]
+  },
+  "install": {
+    "type": "copy",
+    "target": "~/.openclaw/skills/jack-personal-assistant/"
+  }
+}
