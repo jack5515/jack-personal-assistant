@@ -1,0 +1,16 @@
+{
+  "quiet_hours": [23, 8],
+  "brief_update_cooldown_minutes": 30,
+  "urgent_stale_minutes": 20,
+  "stalled_task_minutes": 20,
+  "no_change_bias": -1,
+  "weights": {
+    "running_task": 1,
+    "stalled_task": 3,
+    "new_user_message": 1,
+    "recent_update_penalty": -2,
+    "high_severity": 4,
+    "medium_severity": 2,
+    "quiet_hours_penalty": -2
+  }
+}
