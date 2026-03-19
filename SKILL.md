@@ -90,6 +90,33 @@ openclaw gateway restart
 
 ## 功能说明
 
+### 0. Custom Agents Layer
+
+`jack-personal-assistant/agents/` 目录下维护了一套 Jack 定制的专属子 agent 系统，用于覆盖高频工作流：
+
+- `briefing-scout`：简报候选扫描
+- `market-watch`：市场与个股观察
+- `signal-skeptic`：脏数据与异常结论校验
+- `automation-operator`：cron / heartbeat / 日志值班
+- `pm-radar`：AI 产品与竞品洞察
+- `knowledge-librarian`：知识库与 repo 整理
+- `workflow-architect`：自动化流程设计
+- `service-designer`：服务化与产品化抽象
+
+配套文件：
+- `agents/task-routing.md`
+- `agents/collaboration-map.md`
+- `agents/activation-guide.md`
+- `agents/decision-policy.md`
+- `agents/task-states.md`
+- `agents/runtime-bindings.md`
+
+使用原则：
+- 优先把任务路由到最贴近场景的自定义 agent
+- 对高风险摘要、金融结论、极端数据，默认追加 `signal-skeptic`
+- 对定时任务、heartbeat、脚本异常，默认追加 `automation-operator`
+
+
 ### 1. 自动巡检（Heartbeat）
 
 每次心跳会检查：
