@@ -25,3 +25,4 @@
 - Do not treat `service-designer` as a general analyst.
 - Do not use `briefing-scout` for final judgment-heavy recommendations.
 - Do not use `automation-operator` for strategic interpretation.
+- Do not present candidate or unverifiable outputs as completed factual results.

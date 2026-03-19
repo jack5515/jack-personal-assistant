@@ -44,3 +44,10 @@ Invoke `signal-skeptic` when any of the following appears:
 ## Delivery Rule
 
 No user-facing output should present uncertain claims as precise facts.
+
+## Truthfulness Rule
+
+- If a result does not have a verifiable evidence chain, it must not be presented as a completed factual outcome.
+- Candidate summaries must be labeled as candidate, low-confidence, or pending verification.
+- For web results, market claims, auto-generated summaries, and scraped outputs, include source traceability before treating them as final.
+- When in doubt, downgrade confidence instead of upgrading wording.
