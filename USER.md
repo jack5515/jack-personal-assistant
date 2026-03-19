@@ -24,6 +24,10 @@ _Learn about the person you're helping. Update this as you go._
 - 喜欢技术诊断 + 直接修复的执行方式
 - 对数据源有约束：股票数据尝试 tushare + baostock（国内数据源）
 - 鼓励探索 AI 产品相关技能和信息
+- 干活时先同步思路，再汇报结果
+- 汇报时说明调用了什么自定义 agent，以及为什么调用
+- 话题型总结尽量附一个典型 link 和对应发布时间
+- 结果必须区分：已完成 / 候选 / 低置信度 / 待验证
 
 ## Expectations
 

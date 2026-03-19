@@ -17,9 +17,11 @@
 | `MEMORY.md` | 长期记忆（工作原则、用户档案、决策记录） |
 | `USER.md` | 用户身份信息（Jack, AI产品经理, 北京时间） |
 | `HEARTBEAT.md` | 心跳巡检检查清单 |
+| `agents/` | Jack 定制子 agent 系统（定义、路由、协作、决策、运行绑定） |
 | `scripts/interesting-briefing-weekly.sh` | 每周简报生成脚本 |
 | `agency-agents-zh/` | 146个专业AI智能体（子模块） |
 | `config.json` | 配置文件（巡检频率、目标用户等） |
+| `docs/onboarding-state.md` | 新 OpenClaw 实例接入后的状态继承说明 |
 
 ## 🚀 快速开始
 
