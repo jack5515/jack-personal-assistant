@@ -1,0 +1,41 @@
+{
+  "last_run_date": "2026-03-22",
+  "history": [
+    {
+      "date": "2026-03-22",
+      "used_sources": [
+        "external-knowledge/lennys-newsletterpodcastdata/podcasts/jason-cohen.md",
+        "external-knowledge/lennys-newsletterpodcastdata/podcasts/tomer-cohen.md",
+        "external-knowledge/lennys-newsletterpodcastdata/podcasts/asha-sharma.md"
+      ],
+      "card_titles": [
+        "别把增长停滞先归因于获客，先算清 churn 天花板",
+        "取消原因里最不该轻信的，是用户口中的\"太贵了\"",
+        "定价不是页面上的数字，而是你在选择市场",
+        "PM 正在变成 AI 时代的全栈建造者",
+        "先把 AI 当能力重写目标，不要把它当功能插件",
+        "产品正在从一次性交付物，变成持续进化的 organism",
+        "Agent 时代，组织图会逐渐让位给工作流图"
+      ]
+    },
+    {
+      "date": "2026-03-22",
+      "used_sources": [
+        "external-knowledge/lennys-newsletterpodcastdata/newsletters/how-to-build-your-pm-second-brain-with-chatgpt.md",
+        "external-knowledge/lennys-newsletterpodcastdata/newsletters/everyone-should-be-using-claude-code-more.md",
+        "external-knowledge/lennys-newsletterpodcastdata/newsletters/beyond-vibe-checks-a-pms-complete-guide-to-evals.md",
+        "external-knowledge/lennys-newsletterpodcastdata/podcasts/jeetu-patel.md",
+        "external-knowledge/lennys-newsletterpodcastdata/podcasts/hamel-husain--shreya-shankar.md"
+      ],
+      "card_titles": [
+        "把 AI 项目当作 PM 的第二大脑，而不是问答框",
+        "先把上下文外包给 AI，再把判断留给自己",
+        "Claude Code 的真正价值是本地代理，不是写代码",
+        "评估不是加分项，而是 AI PM 的核心能力",
+        "先做错误分析，再写 eval，不要直接靠感觉改 prompt",
+        "战略判断先问自己：我们有没有这个市场的 right to win",
+        "大公司真正的问题不是不会试验，而是试验成功后不敢全押"
+      ]
+    }
+  ]
+}
