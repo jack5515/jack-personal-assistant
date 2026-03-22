@@ -1,3 +1,6 @@
 [submodule "agency-agents-zh"]
 	path = agency-agents-zh
 	url = https://github.com/jnMetaCode/agency-agents-zh.git
+[submodule "external-knowledge/lennys-newsletterpodcastdata"]
+	path = external-knowledge/lennys-newsletterpodcastdata
+	url = https://github.com/LennysNewsletter/lennys-newsletterpodcastdata.git
