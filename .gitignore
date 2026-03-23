@@ -1,2 +1,5 @@
 .openclaw/
 .DS_Store
+logs/
+workfiles/lenny-daily-cards-latest.md
+memory/lenny-daily-cards-send-state.txt

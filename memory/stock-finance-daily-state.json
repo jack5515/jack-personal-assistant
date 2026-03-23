@@ -1,0 +1,6 @@
+{
+  "version": 1,
+  "createdAt": "2026-03-23",
+  "lastRunDate": null,
+  "notes": "Minimal viable stock/finance daily briefing. Upgrade to tushare+baostock when env is ready."
+}

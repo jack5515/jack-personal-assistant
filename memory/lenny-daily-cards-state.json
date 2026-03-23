@@ -1,6 +1,38 @@
 {
-  "last_run_date": "2026-03-22",
+  "last_run_date": "2026-03-23",
   "history": [
+    {
+      "date": "2026-03-23",
+      "used_sources": [
+        "external-knowledge/lennys-newsletterpodcastdata/podcasts/lazar-jovanovic.md",
+        "external-knowledge/lennys-newsletterpodcastdata/podcasts/alexander-embiricos.md",
+        "external-knowledge/lennys-newsletterpodcastdata/newsletters/a-guide-to-ai-prototyping-for-product-managers.md"
+      ],
+      "card_titles": [
+        "先并行做 3-5 个原型，再选赢家继续做",
+        "AI 时代最值钱的不是写得快，而是判断什么值得做",
+        "最强 agent 不是更会写代码，而是更会接管完整工作流",
+        "AI 提效的下一个瓶颈，不是生成，而是验证",
+        "PM 的 AI 原型能力，价值在于把想法更早暴露给真实用户"
+      ]
+    },
+    {
+      "date": "2026-03-23",
+      "used_sources": [
+        "external-knowledge/lennys-newsletterpodcastdata/podcasts/howie-liu.md",
+        "external-knowledge/lennys-newsletterpodcastdata/podcasts/nicole-forsgren.md",
+        "external-knowledge/lennys-newsletterpodcastdata/podcasts/albert-cheng.md"
+      ],
+      "card_titles": [
+        "AI 时代的老产品，要先自问一次\"如果今天重做\"",
+        "快思考团队负责出惊喜，慢思考团队负责把惊喜做成生意",
+        "AI PM 不再只是写文档，而要变成会原型的跨职能选手",
+        "先把问题定义准，再谈开发效率提升",
+        "速度和稳定性不是二选一，小步快跑反而更稳",
+        "增长不是指标黑客，而是把用户连接到产品价值",
+        "找到自然会被分享的时刻，再把它做得更值得分享"
+      ]
+    },
     {
       "date": "2026-03-22",
       "used_sources": [
