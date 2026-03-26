@@ -35,8 +35,9 @@ cd jack-personal-assistant
 # 安装技能（复制到 OpenClaw）
 ./install.sh
 
-# 重启 OpenClaw 网关
-openclaw gateway restart
+# 这台机器启用了本地 restart guard；普通 restart 可能被拦截。
+# 仅在确认需要重启时，使用：
+openclaw gateway restart --force
 ```
 
 ### 使用

@@ -6,7 +6,8 @@ CARD_FILE="$BASE_DIR/workfiles/lenny-daily-cards-latest.md"
 STATE_FILE="$BASE_DIR/memory/lenny-daily-cards-send-state.txt"
 LOG_DIR="$BASE_DIR/logs"
 LOG_FILE="$LOG_DIR/lenny-daily-cards-send.log"
-TARGET="ou_14ab29b1500a6fa083003a19e543712b"
+DUAL_SENDER="$BASE_DIR/scripts/send-dual-channel.sh"
+HANDOFF_UPDATER="$BASE_DIR/scripts/update-channel-handoff.sh"
 TODAY="$(date '+%Y-%m-%d')"
 
 mkdir -p "$LOG_DIR"
@@ -25,22 +26,26 @@ if ! grep -q "$TODAY" "$CARD_FILE"; then
   exit 0
 fi
 
-LAST_SENT_DATE=""
-if [ -f "$STATE_FILE" ]; then
-  LAST_SENT_DATE=$(cat "$STATE_FILE" || true)
-fi
-
-if [ "$LAST_SENT_DATE" = "$TODAY" ]; then
-  log "skip: already sent today"
-  exit 0
-fi
-
-MESSAGE=$(cat "$CARD_FILE")
-if [ -z "$MESSAGE" ]; then
-  log "skip: card file empty"
+if [ ! -x "$DUAL_SENDER" ]; then
+  log "error: dual sender missing or not executable"
   exit 1
 fi
 
-/opt/homebrew/bin/openclaw message send --channel feishu --target "$TARGET" --message "$MESSAGE" >/dev/null
-echo "$TODAY" > "$STATE_FILE"
-log "sent: $CARD_FILE"
+"$DUAL_SENDER" \
+  --message-file "$CARD_FILE" \
+  --state-file "$STATE_FILE" \
+  --state-value "$TODAY" \
+  --log-file "$LOG_FILE" \
+  --label "lenny-daily-cards"
+
+if [ -x "$HANDOFF_UPDATER" ]; then
+  if ! "$HANDOFF_UPDATER" \
+    --source "lenny-daily-cards" \
+    --status "delivered" \
+    --content-file "$CARD_FILE" \
+    --note "Lenny 学习卡片已双发到飞书和微信。dedupe=$TODAY" >> "$LOG_FILE" 2>&1; then
+    log "warn: failed to update channel handoff"
+  fi
+fi
+
+log "done: $CARD_FILE"

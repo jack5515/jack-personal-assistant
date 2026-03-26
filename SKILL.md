@@ -51,8 +51,9 @@ cd jack-personal-assistant
 # 复制技能到 OpenClaw 技能目录
 cp -r . ~/.openclaw/skills/jack-personal-assistant/
 
-# 重启 OpenClaw 网关
-openclaw gateway restart
+# 这台机器启用了本地 restart guard；普通 restart 可能被拦截。
+# 仅在确认需要重启时，使用：
+openclaw gateway restart --force
 ```
 
 ---
