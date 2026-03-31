@@ -1,0 +1,102 @@
+{
+  "version": 2,
+  "workbench": {
+    "name": "jack-personal-assistant",
+    "type": "assistant-workbench",
+    "manifest": "docs/assistant-workbench-manifest.json"
+  },
+  "coreFiles": [
+    { "name": "README", "path": "README.md" },
+    { "name": "manifest md", "path": "docs/assistant-workbench-manifest.md" },
+    { "name": "manifest json", "path": "docs/assistant-workbench-manifest.json" },
+    { "name": "status model", "path": "docs/workbench-status-model.md" },
+    { "name": "git boundaries", "path": "docs/git-boundaries.md" },
+    { "name": "collaboration", "path": "docs/collaboration-model.md" },
+    { "name": "honesty", "path": "docs/honesty-and-verification.md" },
+    { "name": "self application", "path": "docs/repo-architecture-self-application.md" }
+  ],
+  "layers": {
+    "execution": [
+      "scripts/send-dual-channel.sh",
+      "scripts/generate-lenny-daily-cards.sh",
+      "scripts/send-lenny-daily-cards.sh",
+      "scripts/run-stock-finance-daily.sh",
+      "scripts/run-ai-trend-watch.sh",
+      "scripts/check-openclaw-vision.sh",
+      "scripts/render-workbench-summary.py",
+      "scripts/workbench-status.sh",
+      "scripts/workbench-verify.sh",
+      "scripts/workbench-precommit-check.sh"
+    ],
+    "state": [
+      "memory/*-state.json",
+      "memory/*-send-state.txt*",
+      "memory/channel-handoff.md"
+    ],
+    "knowledge": [
+      "MEMORY.md",
+      "AGENTS.md",
+      "USER.md",
+      "docs/workbench-status-model.md",
+      "docs/git-boundaries.md",
+      "docs/collaboration-model.md",
+      "docs/honesty-and-verification.md",
+      "docs/repo-architecture-self-application.md"
+    ],
+    "delivery": [
+      "workfiles/*-latest.md",
+      "workfiles/*report*.md"
+    ]
+  },
+  "capabilities": [
+    {
+      "name": "dual-channel-send",
+      "status": "已验证",
+      "entry": "scripts/send-dual-channel.sh",
+      "verify": "scripts/workbench-verify.sh dual-channel",
+      "logs": []
+    },
+    {
+      "name": "lenny-daily-cards",
+      "status": "部分可用",
+      "entry": "scripts/generate-lenny-daily-cards.sh",
+      "verify": "scripts/workbench-verify.sh lenny",
+      "logs": [
+        "logs/lenny-daily-cards-generate.log",
+        "logs/lenny-daily-cards-send.log"
+      ]
+    },
+    {
+      "name": "stock-finance-daily",
+      "status": "已验证",
+      "entry": "scripts/run-stock-finance-daily.sh",
+      "verify": "scripts/workbench-verify.sh stock-finance",
+      "logs": [
+        "logs/stock-finance-daily.log"
+      ]
+    },
+    {
+      "name": "ai-trend-watch",
+      "status": "部分可用",
+      "entry": "scripts/run-ai-trend-watch.sh",
+      "verify": "scripts/workbench-verify.sh ai-trend",
+      "logs": [
+        "logs/ai-trend-watch.log"
+      ]
+    },
+    {
+      "name": "vision-check",
+      "status": "已验证",
+      "entry": "scripts/check-openclaw-vision.sh",
+      "verify": "scripts/workbench-verify.sh vision",
+      "logs": []
+    },
+    {
+      "name": "workbench-summary",
+      "status": "已验证",
+      "entry": "scripts/render-workbench-summary.py",
+      "verify": "scripts/workbench-verify.sh summary",
+      "logs": []
+    }
+  ]
+}

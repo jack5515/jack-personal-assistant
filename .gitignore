@@ -1,5 +1,27 @@
 .openclaw/
 .DS_Store
+
+# Runtime logs
 logs/
-workfiles/lenny-daily-cards-latest.md
-memory/lenny-daily-cards-send-state.txt
+
+# Generated outputs and temp artifacts
+generated/
+tmp/
+media/
+
+# Workfile outputs (keep task specs, ignore volatile latest/test outputs)
+workfiles/*-latest.md
+workfiles/dual-send-test-*.md
+workfiles/ai-trend-watch-manual-*.md
+workfiles/ai-trend-report-*.md
+
+# Runtime state and handoff files
+memory/*-send-state.txt
+memory/*-send-state.txt.*
+memory/*-state.json
+memory/dual-send-ack-test-state.txt.*
+memory/dual-send-test-state*.txt.*
+memory/channel-handoff.md
+
+# Daily notes are local operating memory by default
+memory/20*.md

@@ -1,111 +1,94 @@
-# Jack's Personal Assistant Skill
+# Jack's Personal Assistant Workspace
 
-[OpenClaw Skill](https://clawhub.com) - 为 AI 产品经理 Jack 定制的个人助理技能包
+这是 Jack 的 OpenClaw 助手工作台，不是一个“已经封装完整的产品”，而是一套持续演进中的 agent workspace。
 
-## 🎯 功能亮点
+当前更准确的理解方式是：
+- `scripts/` 负责执行能力
+- `memory/` 负责状态与连续性
+- `workfiles/` 负责输入输出与结果物
+- `docs/` 负责方法、说明和结构化清单
 
-- ✅ **工作原则集成**：秒回、第一性原理、Codex外包、主动巡检、成本控制等11条核心原则
-- ✅ **智能巡检维度**：11个子类（产品、技术、金融、个人成长）自动发现有趣内容
-- ✅ **定时任务**：每周简报自动生成 + 财经新闻监控
-- ✅ **146个Agency Agents**：工程、设计、营销、游戏、空间计算等全领域专家团队
-- ✅ **心跳巡检**：自动检查任务进度、智能体状态、报告生成
+目标不是把所有东西都塞进一个技能说明，而是把这套 workspace 做成一个清楚分层、诚实表达当前状态、可验证推进的 agent workbench。
 
-## 📦 包含内容
+## Current Status
 
-| 组件 | 说明 |
-|------|------|
-| `MEMORY.md` | 长期记忆（工作原则、用户档案、决策记录） |
-| `USER.md` | 用户身份信息（Jack, AI产品经理, 北京时间） |
-| `HEARTBEAT.md` | 心跳巡检检查清单 |
-| `agents/` | Jack 定制子 agent 系统（定义、路由、协作、决策、运行绑定） |
-| `scripts/interesting-briefing-weekly.sh` | 每周简报生成脚本 |
-| `agency-agents-zh/` | 146个专业AI智能体（子模块） |
-| `config.json` | 配置文件（巡检频率、目标用户等） |
-| `docs/onboarding-state.md` | 新 OpenClaw 实例接入后的状态继承说明 |
+当前这套 workspace 已经具备一批可工作的能力，但成熟度不同。
 
-## 🚀 快速开始
+### 已验证能力
 
-### 安装
+- `dual-channel-send`
+  - 能把同一份内容发送到飞书和微信
+  - 支持按 channel 记录 state，避免重复发送
+  - 相关脚本：`scripts/send-dual-channel.sh`
+- `lenny-daily-cards`
+  - 能生成并发送每日 Lenny 学习卡片
+  - 相关脚本：`scripts/generate-lenny-daily-cards.sh`、`scripts/send-lenny-daily-cards.sh`
+- `stock-finance-daily`
+  - 能生成并双发股票财经晨报
+  - 相关脚本：`scripts/run-stock-finance-daily.sh`
+- `ai-trend-watch`
+  - 能执行 AI 巡检、生成结果、按结果双发
+  - 相关脚本：`scripts/run-ai-trend-watch.sh`
+- `vision-check`
+  - 能对当前 OpenClaw 图片读取链路做最小诊断
+  - 相关脚本：`scripts/check-openclaw-vision.sh`
 
-```bash
-# 克隆仓库
-git clone https://github.com/yourusername/jack-personal-assistant.git
-cd jack-personal-assistant
+### 已存在但仍需继续产品化的部分
 
-# 安装技能（复制到 OpenClaw）
-./install.sh
+- 能力清单还没完全结构化，仍有一部分知识散落在 `MEMORY.md`、`AGENTS.md` 和脚本内部
+- 运行状态文件、本地产物、日志文件与可提交代码尚未完全分层
+- 有些验证动作已经存在，但还没统一成一个清晰的 `status / verify / dry-run` 入口
 
-# 这台机器启用了本地 restart guard；普通 restart 可能被拦截。
-# 仅在确认需要重启时，使用：
-openclaw gateway restart --force
+## Workspace Layout
+
+```text
+.
+├── README.md                        # 当前工作台说明
+├── AGENTS.md                        # workspace 行为约束
+├── MEMORY.md                        # 长期记忆与原则
+├── USER.md                          # 用户画像
+├── HEARTBEAT.md                     # heartbeat 巡检清单
+├── docs/                            # 文档、说明、manifest
+├── scripts/                         # 自动化执行脚本
+├── workfiles/                       # 任务输入输出与结果物
+├── memory/                          # 运行状态、日记、handoff
+├── logs/                            # 本地日志
+├── agency-agents-zh/                # 专家 agents 子模块
+└── generated/ tmp/ media/           # 生成物和临时目录
 ```
 
-### 使用
+## Design Principles
 
-激活智能体：
-```
-激活小红书运营智能体，帮我设计种草笔记策略
-```
+这套 workspace 后续按以下原则继续整理：
 
-查看工作原则：
-```
-查看我的工作原则
-```
+- `分层清楚`
+  - 执行层、状态层、知识层、交付层分开维护
+- `状态诚实`
+  - 不把“脚本存在”说成“能力稳定”
+  - 默认区分：已验证 / 部分可用 / 待修复 / 仅设想
+- `验证优先`
+  - 重要改动默认附最小验证证据，而不是只给口头结论
+- `跨端做薄`
+  - 飞书和微信视为独立 session，跨端连续性依赖 handoff，而不是 raw transcript
+- `Git 边界明确`
+  - 只提交能力与文档，不把本地状态、日志、latest 产物混进仓库
 
----
+## What This Repository Is Not
 
-## 📁 文件结构
+这不是：
+- 一个已经封装完成、对外稳定分发的通用产品
+- 一个不依赖本地环境和私有凭证的纯开源样板
+- 一个可以脱离 `MEMORY.md` / `AGENTS.md` 就完整运行的最小仓库
 
-```
-jack-personal-assistant/
-├── SKILL.md              # 技能说明文档
-├── skill.json            # 技能元数据
-├── package.json          # NPM 风格元数据
-├── MEMORY.md             # 长期记忆
-├── USER.md               # 用户档案
-├── HEARTBEAT.md          # 巡检清单
-├── config.json           # 配置
-├── install.sh            # 安装脚本
-├── scripts/
-│   └── interesting-briefing-weekly.sh
-└── agency-agents-zh/     # 146个智能体（Git子模块）
-```
+## Recommended Next Steps
 
----
+建议下一步按这个顺序推进：
 
-## 🔧 配置
+1. 补全能力 manifest，统一记录每条自动化的入口、输入、输出、状态文件和日志文件
+2. 收紧 `.gitignore`，把运行态文件和可提交代码分开
+3. 给关键能力补统一的 `verify` 思路
+4. 将“实事求是 / 视觉证据自检 / 生成-发送-触发分层验收”沉淀成更正式的工程说明
 
-必需环境变量：
-- `STEPFUN_API_KEY` - 用于内容搜索
+## Manifest
 
-可选配置（`config.json`）：
-- `heartbeat_interval_minutes`
-- `weekly_briefing_day` / `weekly_briefing_hour`
-- `scan_categories`
-- `feishu_target_user`
-
----
-
-## 📊 当前状态
-
-- **版本**: 1.0.0
-- **智能体数量**: 146
-- **覆盖领域**: 工程/设计/营销/销售/产品/项目管理/测试/支持/游戏/空间计算/战略
-- **国内平台**: 小红书/抖音/微信/B站/快手/淘宝/百度/微博/播客/跨境电商
-- **状态**: ✅ 生产就绪
-
----
-
-## 🤝 贡献
-
-欢迎 Issue 和 PR！
-
----
-
-## License
-
-MIT
-
----
-
-**Made with ❤️ for Jack**
+当前能力清单见：`docs/assistant-workbench-manifest.md`
