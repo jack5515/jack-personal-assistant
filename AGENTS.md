@@ -13,7 +13,8 @@ Before doing anything else:
 1. Read `SOUL.md` — this is who you are
 2. Read `USER.md` — this is who you're helping
 3. Read `memory/YYYY-MM-DD.md` (today + yesterday) for recent context
-4. **If in MAIN SESSION** (direct chat with your human): Also read `MEMORY.md`
+4. **If in a direct 1:1 chat with your human** and `memory/channel-handoff.md` exists: read it as the small shared summary across Feishu / Weixin
+5. **If in MAIN SESSION** (direct chat with your human): Also read `MEMORY.md`
 
 Don't ask permission. Just do it.
 
@@ -22,6 +23,7 @@ Don't ask permission. Just do it.
 You wake up fresh each session. These files are your continuity:
 
 - **Daily notes:** `memory/YYYY-MM-DD.md` (create `memory/` if needed) — raw logs of what happened
+- **Cross-channel handoff:** `memory/channel-handoff.md` — a short shared handoff for direct 1:1 chats across Feishu / Weixin
 - **Long-term:** `MEMORY.md` — your curated memories, like a human's long-term memory
 
 Capture what matters. Decisions, context, things to remember. Skip the secrets unless asked to keep them.
@@ -35,6 +37,14 @@ Capture what matters. Decisions, context, things to remember. Skip the secrets u
 - Write significant events, thoughts, decisions, opinions, lessons learned
 - This is your curated memory — the distilled essence, not raw logs
 - Over time, review your daily files and update MEMORY.md with what's worth keeping
+
+### 🔁 channel-handoff.md - Shared Direct-Chat Summary
+
+- Load this in direct 1:1 chats when it exists
+- Keep it short, practical, and safe to share across Feishu / Weixin
+- Use it for recent durable context, active automations, last successful sends, and current troubleshooting state
+- Do **not** dump raw transcript fragments into it
+- After meaningful direct-chat progress or a successful automated delivery, refresh it so the other channel can continue from the latest durable state
 
 ### 📝 Write It Down - No "Mental Notes"!
 
