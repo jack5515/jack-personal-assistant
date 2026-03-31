@@ -4,6 +4,12 @@ set -euo pipefail
 export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:${PATH:-}"
 
 OPENCLAW_BIN="${OPENCLAW_BIN:-/opt/homebrew/bin/openclaw}"
+CONFIG_FILE="${CONFIG_FILE:-/Users/jyxc/.openclaw/workspace/config/channel-targets.env}"
+if [ -f "$CONFIG_FILE" ]; then
+  # Load fixed channel targets from workspace config so automation stays pinned.
+  # shellcheck disable=SC1090
+  source "$CONFIG_FILE"
+fi
 FEISHU_TARGET="${FEISHU_TARGET:-ou_14ab29b1500a6fa083003a19e543712b}"
 WEIXIN_TARGET="${WEIXIN_TARGET:-o9cq804e6C58_WBPHvn6QUyvFp1s@im.wechat}"
 WEIXIN_ACCOUNT_ID="${WEIXIN_ACCOUNT_ID:-891c59a688e1-im-bot}"
