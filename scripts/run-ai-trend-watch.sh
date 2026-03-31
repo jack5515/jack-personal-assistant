@@ -103,6 +103,31 @@ summary_text = first_text(raw.get("summary")) or first_text(raw.get("result", {}
 if not text:
     text = summary_text
 
+FORMAL_MARKERS = ("已完成", "候选", "低置信度", "待验证")
+PROCESS_HINTS = (
+    "先做",
+    "我先",
+    "继续",
+    "只读核查",
+    "command not found",
+    "退回 `grep`",
+    "退回 grep",
+    "最近 3 天官方源最小核查",
+)
+
+def is_formal_briefing(value):
+    if not value:
+        return False
+    if value == "NO_REPLY":
+        return True
+    marker_count = sum(1 for marker in FORMAL_MARKERS if marker in value)
+    if marker_count == 0:
+        return False
+    stripped = value.strip()
+    if any(hint in stripped for hint in PROCESS_HINTS):
+        return False
+    return True
+
 state = {"version": 2}
 if state_path.exists():
     try:
@@ -139,6 +164,20 @@ if text == "NO_REPLY":
     state_path.write_text(json.dumps(state, ensure_ascii=False, indent=2) + "\n")
     with log_file.open("a") as fh:
         fh.write(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] no-reply\n")
+    print("NO_REPLY")
+    raise SystemExit(0)
+
+if not is_formal_briefing(text):
+    preview = text[:400].replace("\n", "\\n")
+    state.update({
+        "version": 2,
+        "lastStatus": "filtered_non_briefing",
+        "lastRunAt": now,
+        "lastPreview": preview,
+    })
+    state_path.write_text(json.dumps(state, ensure_ascii=False, indent=2) + "\n")
+    with log_file.open("a") as fh:
+        fh.write(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] filtered-non-briefing preview={preview}\n")
     print("NO_REPLY")
     raise SystemExit(0)
 

@@ -1,8 +1,10 @@
 #!/bin/bash
 set -euo pipefail
 
+export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:${PATH:-}"
+
 BASE_DIR="/Users/jyxc/.openclaw/workspace"
-OPENCLAW_BIN="${OPENCLAW_BIN:-/Users/jyxc/bin/openclaw}"
+OPENCLAW_BIN="${OPENCLAW_BIN:-/opt/homebrew/bin/openclaw}"
 DUAL_SENDER="$BASE_DIR/scripts/send-dual-channel.sh"
 HANDOFF_UPDATER="$BASE_DIR/scripts/update-channel-handoff.sh"
 OUTPUT_FILE="$BASE_DIR/workfiles/stock-finance-daily-latest.md"

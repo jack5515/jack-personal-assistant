@@ -1,7 +1,9 @@
 #!/bin/bash
 set -euo pipefail
 
-OPENCLAW_BIN="${OPENCLAW_BIN:-/Users/jyxc/bin/openclaw}"
+export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:${PATH:-}"
+
+OPENCLAW_BIN="${OPENCLAW_BIN:-/opt/homebrew/bin/openclaw}"
 FEISHU_TARGET="${FEISHU_TARGET:-ou_14ab29b1500a6fa083003a19e543712b}"
 WEIXIN_TARGET="${WEIXIN_TARGET:-o9cq804e6C58_WBPHvn6QUyvFp1s@im.wechat}"
 WEIXIN_ACCOUNT_ID="${WEIXIN_ACCOUNT_ID:-891c59a688e1-im-bot}"
@@ -32,11 +34,12 @@ log() {
 send_channel() {
   local channel="$1"
   local target="$2"
-  local cmd=("$OPENCLAW_BIN" message send)
+  local cmd=("$OPENCLAW_BIN" message send --json)
   local output=""
+  local parsed=""
 
   if [ "$DRY_RUN" = "1" ]; then
-    cmd+=(--dry-run --json)
+    cmd+=(--dry-run)
   fi
   if [ "$channel" = "openclaw-weixin" ]; then
     cmd+=(--account "$WEIXIN_ACCOUNT_ID")
@@ -44,7 +47,35 @@ send_channel() {
 
   cmd+=(--channel "$channel" --target "$target" --message "$MESSAGE")
 
-  if output="$("${cmd[@]}" 2>&1 >/dev/null)"; then
+  if output="$("${cmd[@]}" 2>&1)"; then
+    parsed="$(printf '%s' "$output" | python3 -c '
+import json, sys
+raw = sys.stdin.read()
+start = raw.find("{")
+obj = None
+while start != -1:
+    try:
+        obj = json.loads(raw[start:])
+        break
+    except json.JSONDecodeError:
+        start = raw.find("{", start + 1)
+if not isinstance(obj, dict):
+    print("json=unparsed")
+    raise SystemExit(0)
+payload = obj.get("payload") or {}
+result = payload.get("result") or {}
+message_id = result.get("messageId") or ""
+via = payload.get("via") or ""
+parts = []
+if message_id:
+    parts.append(f"messageId={message_id}")
+if via:
+    parts.append(f"via={via}")
+if obj.get("dryRun"):
+    parts.append("dryRun=true")
+print(" ".join(parts) if parts else "json=parsed")
+' 2>/dev/null || true)"
+    [ -n "$parsed" ] && log "ack: $LABEL $channel $parsed"
     return 0
   fi
 

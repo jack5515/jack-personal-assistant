@@ -4,7 +4,7 @@ set -euo pipefail
 export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:${PATH:-}"
 
 BASE_DIR="/Users/jyxc/.openclaw/workspace"
-OPENCLAW_BIN="${OPENCLAW_BIN:-/Users/jyxc/bin/openclaw}"
+OPENCLAW_BIN="${OPENCLAW_BIN:-/opt/homebrew/bin/openclaw}"
 TASK_FILE="$BASE_DIR/workfiles/lenny-daily-cards-task.md"
 STATE_FILE="$BASE_DIR/memory/lenny-daily-cards-state.json"
 CARD_FILE="$BASE_DIR/workfiles/lenny-daily-cards-latest.md"
