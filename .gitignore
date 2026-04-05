@@ -7,7 +7,9 @@ logs/
 # Generated outputs and temp artifacts
 generated/
 tmp/
+_tmp/
 media/
+tools/md2pptx/
 
 # Workfile outputs (keep task specs, ignore volatile latest/test outputs)
 workfiles/*-latest.md
@@ -19,9 +21,16 @@ workfiles/ai-trend-report-*.md
 memory/*-send-state.txt
 memory/*-send-state.txt.*
 memory/*-state.json
+memory/*.state.feishu
+memory/*.state.weixin
 memory/dual-send-ack-test-state.txt.*
 memory/dual-send-test-state*.txt.*
 memory/channel-handoff.md
 
 # Daily notes are local operating memory by default
 memory/20*.md
+
+# Local skill symlinks and personal drafts
+skills/any2pdf
+skills/md2pptx
+skills/deck-images-pexels

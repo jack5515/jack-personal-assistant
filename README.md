@@ -33,6 +33,18 @@
   - 能对当前 OpenClaw 图片读取链路做最小诊断
   - 相关脚本：`scripts/check-openclaw-vision.sh`
 
+### 本地工具封装
+
+- `any2pdf`
+  - 本地 Markdown 转 PDF 封装
+  - 相关脚本：`scripts/any2pdf.sh`
+- `md2pptx`
+  - 本地 Markdown 转可编辑 PPTX 封装
+  - 相关脚本：`scripts/md2pptx.sh`
+- `deck-images-pexels`
+  - 本地 Pexels 搜图与下载封装
+  - 相关脚本：`scripts/pexels-search.sh`、`scripts/pexels-search.py`
+
 ### 已存在但仍需继续产品化的部分
 
 - 能力清单还没完全结构化，仍有一部分知识散落在 `MEMORY.md`、`AGENTS.md` 和脚本内部
