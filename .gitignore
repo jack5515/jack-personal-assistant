@@ -20,6 +20,7 @@ workfiles/ai-trend-report-*.md
 # Runtime state and handoff files
 memory/*-send-state.txt
 memory/*-send-state.txt.*
+memory/*-state.txt.*
 memory/*-state.json
 memory/*.state.feishu
 memory/*.state.weixin

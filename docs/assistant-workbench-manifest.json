@@ -22,6 +22,7 @@
       "scripts/send-lenny-daily-cards.sh",
       "scripts/run-stock-finance-daily.sh",
       "scripts/run-ai-trend-watch.sh",
+      "scripts/run-ai-trend-daily.sh",
       "scripts/check-openclaw-vision.sh",
       "scripts/render-workbench-summary.py",
       "scripts/workbench-status.sh",
@@ -82,6 +83,15 @@
       "verify": "scripts/workbench-verify.sh ai-trend",
       "logs": [
         "logs/ai-trend-watch.log"
+      ]
+    },
+    {
+      "name": "ai-trend-daily",
+      "status": "部分可用",
+      "entry": "scripts/run-ai-trend-daily.sh",
+      "verify": "scripts/workbench-verify.sh ai-trend-daily",
+      "logs": [
+        "logs/ai-trend-daily.log"
       ]
     },
     {

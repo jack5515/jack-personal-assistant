@@ -20,6 +20,7 @@
 | `lenny-daily-cards-send` | 已验证 | `scripts/send-lenny-daily-cards.sh` | latest card file | 双发结果 | `memory/lenny-daily-cards-send-state.txt.*`, `logs/lenny-daily-cards-send.log` | `tail -n 5 logs/lenny-daily-cards-send.log` | 自动发送成功但微信不可见、state 残留、文件日期不符 |
 | `stock-finance-daily` | 已验证 | `scripts/run-stock-finance-daily.sh` | task prompt, public info | `workfiles/stock-finance-daily-latest.md` | `memory/stock-finance-daily-state.json`, `memory/stock-finance-daily-send-state.txt.*`, `logs/stock-finance-daily.log` | `scripts/workbench-verify.sh stock-finance` | 晨报结构不合法、公开信息证据不足、发送层与可见性不一致 |
 | `ai-trend-watch` | 部分可用 | `scripts/run-ai-trend-watch.sh` | task prompt, external search / agent output | `workfiles/ai-trend-watch-latest.md` | `memory/ai-trend-watch-state.json`, `memory/ai-trend-watch-send-state.txt.*`, `logs/ai-trend-watch.log` | `scripts/workbench-verify.sh ai-trend` | 搜索受限、返回过程性文本、阈值判断过松或过严 |
+| `ai-trend-daily` | 部分可用 | `scripts/run-ai-trend-daily.sh` | task prompt, agent output | `workfiles/ai-trend-daily-latest.md` | `memory/ai-trend-daily-state.json`, `memory/ai-trend-daily-send-state.txt.*`, `logs/ai-trend-daily.log` | `scripts/workbench-verify.sh ai-trend-daily` | 生成结果格式不合法、双发链路失败、日报与事件推送重复 |
 | `signal-thesis-loop` | 部分可用 | `docs/signal-thesis-loop.md`, `docs/judgment-frameworks.md` | ai-trend signals, durable notes | thesis, watchlist, reusable judgment frames | `MEMORY.md`, `docs/*.md` | `scripts/workbench-verify.sh docs` | thesis 没有沉淀、巡检与长期记忆断开、背景知识只存结论不存判断框架 |
 | `thesis-register` | 部分可用 | `docs/thesis-register.md` | repeated signals, durable judgments | reusable thesis list | `docs/thesis-register.md` | `scripts/workbench-verify.sh docs` | thesis 仍散在记忆里、无法被新 signal 系统更新 |
 | `ai-watchlist` | 部分可用 | `docs/ai-watchlist.md` | current theses, current priorities | focused scan targets | `docs/ai-watchlist.md` | `scripts/workbench-verify.sh docs` | 巡检退回泛扫描、噪音过多、方向感不够 |
@@ -41,6 +42,7 @@ scripts/workbench-verify.sh dual-channel
 scripts/workbench-verify.sh lenny
 scripts/workbench-verify.sh stock-finance
 scripts/workbench-verify.sh ai-trend
+scripts/workbench-verify.sh ai-trend-daily
 scripts/workbench-verify.sh vision
 scripts/workbench-status.sh
 ```

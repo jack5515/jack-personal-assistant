@@ -59,6 +59,12 @@ def verify_ai_trend() -> None:
     _check_file('workfiles/ai-trend-watch-task.md')
 
 
+def verify_ai_trend_daily() -> None:
+    _check_exec('scripts/run-ai-trend-daily.sh')
+    _check_exec('scripts/send-dual-channel.sh')
+    _check_file('workfiles/ai-trend-watch-task.md')
+
+
 def verify_vision() -> None:
     _check_exec('scripts/check-openclaw-vision.sh')
     _run([str(BASE_DIR / 'scripts/check-openclaw-vision.sh'), '--help'])
@@ -76,12 +82,13 @@ def verify(capability: str) -> None:
         'lenny': verify_lenny,
         'stock-finance': verify_stock_finance,
         'ai-trend': verify_ai_trend,
+        'ai-trend-daily': verify_ai_trend_daily,
         'vision': verify_vision,
         'summary': verify_summary,
     }
 
     if capability == 'all':
-        for name in ('docs', 'dual-channel', 'lenny', 'stock-finance', 'ai-trend', 'vision', 'summary'):
+        for name in ('docs', 'dual-channel', 'lenny', 'stock-finance', 'ai-trend', 'ai-trend-daily', 'vision', 'summary'):
             handlers[name]()
         return
 

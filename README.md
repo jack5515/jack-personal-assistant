@@ -27,8 +27,11 @@
   - 能生成并双发股票财经晨报
   - 相关脚本：`scripts/run-stock-finance-daily.sh`
 - `ai-trend-watch`
-  - 能执行 AI 巡检、生成结果、按结果双发
+  - 能执行 AI 巡检、命中高价值 signal 时即时双发
   - 相关脚本：`scripts/run-ai-trend-watch.sh`
+- `ai-trend-daily`
+  - 能生成每日 AI 巡检日报，并按默认双发链路投递；微信是优先目标
+  - 相关脚本：`scripts/run-ai-trend-daily.sh`
 - `vision-check`
   - 能对当前 OpenClaw 图片读取链路做最小诊断
   - 相关脚本：`scripts/check-openclaw-vision.sh`

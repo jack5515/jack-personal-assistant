@@ -7,14 +7,14 @@ CAPABILITY="${1:-all}"
 usage() {
   cat <<'EOF'
 Usage:
-  workbench-verify.sh [all|docs|dual-channel|lenny|stock-finance|ai-trend|vision|summary]
+  workbench-verify.sh [all|docs|dual-channel|lenny|stock-finance|ai-trend|ai-trend-daily|vision|summary]
 
 Non-destructive checks for the current assistant workbench.
 EOF
 }
 
 case "$CAPABILITY" in
-  all|docs|dual-channel|lenny|stock-finance|ai-trend|vision|summary)
+  all|docs|dual-channel|lenny|stock-finance|ai-trend|ai-trend-daily|vision|summary)
     ;;
   -h|--help)
     usage
