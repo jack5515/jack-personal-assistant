@@ -19,18 +19,30 @@
 - 哪个条件变化会推翻这个判断
 - 下一轮该补什么证据
 
-## Framework 1: Signal -> Thesis
+## Framework 1: 创业驾驶舱四问
 
-一条巡检 signal 默认按这 4 步处理：
+一条巡检 signal 默认先回答这 `4` 个问题：
 
-1. `发生了什么`
-2. `为什么这不是普通新闻`
-3. `这反映的长期模式是什么`
-4. `这会不会改变 Jack 的产品/创业判断`
+1. `它验证了哪条 thesis`
+2. `它削弱了哪条 thesis`
+3. `它要求 Jack 本周做什么动作`
+4. `它说明目前不该做什么`
 
-如果只能回答前 1-2 步，这条内容更像资讯，不够像 thesis。
+如果回答不到这里，这条内容更像资讯，不够像创业决策增量。
 
-## Framework 2: Product Opportunity
+## Framework 2: 证据优先级
+
+默认不要先被官方博客牵着走。优先级更应该是：
+
+- `用户真实痛点`
+- `付费与包装`
+- `工作流断裂`
+- `行为变化`
+- `官方动作交叉验证`
+
+如果一条内容只有官方博客，没有用户痛点、付费摩擦、工作流断裂或行为变化证据，默认权重下降。
+
+## Framework 3: Product Opportunity
 
 评估一个产品机会时，默认看：
 
@@ -48,7 +60,7 @@
 - 价值来自系统，还是来自大量人工兜底？
 - 如果基座模型继续进步，这个层的价值会被压缩吗？
 
-## Framework 3: Agent Product
+## Framework 4: Agent Product
 
 评估 Agent 路线时，默认拆成三层：
 
@@ -64,7 +76,7 @@
 - 是否有权限和状态可视化
 - 是否真的形成了 workflow 闭环
 
-## Framework 4: Service vs Outsourcing
+## Framework 5: Service vs Outsourcing
 
 凡是讨论 Claw / Agent 商业化，默认都要过这条红线：
 
@@ -73,7 +85,7 @@
 
 如果更像后者，就要警惕滑向 AI 外包。
 
-## Framework 5: AI PM / Product Judgment
+## Framework 6: AI PM / Product Judgment
 
 默认判断 AI 产品或 AI PM 能力时，重点看：
 
@@ -83,7 +95,19 @@
 - 是否能沉淀 bad case 与反馈闭环
 - 是否把方法论沉淀成 AI 可复用的流程/知识/技能
 
-## Framework 6: Next-Round Watchlist
+## Framework 7: No-Signal Fallback
+
+如果当天没有强 signal，不允许只停在“今天没大事”。
+
+默认补其中至少一项：
+
+- `一条 thesis 反证`
+- `一个候选机会拆解`
+- `一组关键证据缺口`
+
+这样巡检才会继续收敛，而不是空转。
+
+## Framework 8: Next-Round Watchlist
 
 每条高价值 signal 最后尽量补一句：
 

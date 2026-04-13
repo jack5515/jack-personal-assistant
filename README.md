@@ -32,6 +32,9 @@
 - `ai-trend-daily`
   - 能生成每日 AI 巡检日报，并按默认双发链路投递；微信是优先目标
   - 相关脚本：`scripts/run-ai-trend-daily.sh`
+- `wechat-feishu-summary`
+  - 能汇总最近 5 分钟微信新消息并推送到飞书
+  - 相关脚本：`scripts/run-wechat-feishu-summary.py`
 - `vision-check`
   - 能对当前 OpenClaw 图片读取链路做最小诊断
   - 相关脚本：`scripts/check-openclaw-vision.sh`

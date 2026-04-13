@@ -88,6 +88,36 @@
 - `judgment framework`
 - `task definition`
 
+## Sample 002
+
+### 任务
+`AI 巡检简报` / 目标：从“高质量行业观察”升级成“创业决策支持”。
+
+### AI 原输出 v1
+- 更像高质量信息整理
+- 默认偏官方博客 / 公开发布 / 新闻层
+- 能做产品判断，但不一定落到创业动作
+- 无强 signal 时，容易停在“今天没大事”
+
+### Jack 优化后输出 v2
+- 默认优先抓 `论坛 / Reddit / X / GitHub issue / App Store 差评 / 竞品社区`
+- 每条高价值输入都要回答：验证哪条 thesis、削弱哪条 thesis、本周做什么动作、对资源分配意味着什么
+- 没有强 signal 时，自动补 `反证 / 机会拆解 / 关键证据缺口`
+- 输出目标从“日报”改成“决策资产”
+
+### 差异原因
+- `signal 选择`
+- `创业启发质量`
+- `可执行性`
+- `结构组织`
+
+### 应该更新哪一层
+- `task definition`
+- `watchlist`
+- `template`
+- `judgment framework`
+- `thesis register`
+
 ## Rule
 
 后续只要出现“Jack 明显把输出改好了”的场景，就值得往这里补一条。

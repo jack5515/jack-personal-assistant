@@ -7,9 +7,16 @@ BASE_DIR="/Users/jyxc/.openclaw/workspace"
 # Use the real binary so cron/background runs do not depend on shell wrappers.
 OPENCLAW_BIN="${OPENCLAW_BIN:-/opt/homebrew/bin/openclaw}"
 DUAL_SENDER="$BASE_DIR/scripts/send-dual-channel.sh"
+CONFIG_FILE="${CONFIG_FILE:-$BASE_DIR/config/channel-targets.env}"
 OUTPUT_FILE="$BASE_DIR/workfiles/ai-trend-watch-latest.md"
 RUN_STATE_FILE="$BASE_DIR/memory/ai-trend-watch-state.json"
 SEND_STATE_FILE="$BASE_DIR/memory/ai-trend-watch-send-state.txt"
+if [ -f "$CONFIG_FILE" ]; then
+  # Keep cron/manual runs aligned with the workspace channel defaults.
+  # shellcheck disable=SC1090
+  source "$CONFIG_FILE"
+fi
+WATCH_CHANNELS="${AI_TREND_WATCH_CHANNELS:-feishu,openclaw-weixin}"
 LOG_DIR="$BASE_DIR/logs"
 LOG_FILE="$LOG_DIR/ai-trend-watch.log"
 TMP_JSON="$(mktemp)"
@@ -38,11 +45,12 @@ PROMPT=$(cat <<'EOF'
 任务：
 1. 先读取 workfiles/ai-trend-watch-task.md。
 2. 当前北京时间：__NOW__
-3. 只保留真正值得 Jack 关注的高价值 signal。
+3. 只保留真正值得 Jack 创业判断关注的高价值 signal。
 4. 如果没有达到阈值，必须只返回 NO_REPLY。
 5. 如果达到阈值，只返回最终简报正文，不要过程说明。
 6. 不要主动发送消息，本脚本会负责投递。
-7. 如果你需要运行本地命令，只能使用当前机器可用的基础命令；不要调用 `python`，只假设 `python3` 可能可用。
+7. 严格按 task 里的证据优先级、thesis 挂载和创业动作要求执行，不要回退成普通行业新闻摘要。
+8. 如果你需要运行本地命令，只能使用当前机器可用的基础命令；不要调用 `python`，只假设 `python3` 可能可用。
 EOF
 )
 PROMPT="${PROMPT//__NOW__/$NOW}"
@@ -204,7 +212,7 @@ if [ "$RESULT" = "NO_REPLY" ]; then
   exit 0
 fi
 
-"$DUAL_SENDER" \
+DELIVERY_CHANNELS="$WATCH_CHANNELS" "$DUAL_SENDER" \
   --message-file "$OUTPUT_FILE" \
   --state-file "$SEND_STATE_FILE" \
   --state-value "$RESULT" \

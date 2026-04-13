@@ -7,9 +7,16 @@ BASE_DIR="/Users/jyxc/.openclaw/workspace"
 OPENCLAW_BIN="${OPENCLAW_BIN:-/opt/homebrew/bin/openclaw}"
 DUAL_SENDER="$BASE_DIR/scripts/send-dual-channel.sh"
 HANDOFF_UPDATER="$BASE_DIR/scripts/update-channel-handoff.sh"
+CONFIG_FILE="${CONFIG_FILE:-$BASE_DIR/config/channel-targets.env}"
 OUTPUT_FILE="$BASE_DIR/workfiles/ai-trend-daily-latest.md"
 RUN_STATE_FILE="$BASE_DIR/memory/ai-trend-daily-state.json"
 SEND_STATE_FILE="$BASE_DIR/memory/ai-trend-daily-send-state.txt"
+if [ -f "$CONFIG_FILE" ]; then
+  # Keep cron/manual runs aligned with the workspace channel defaults.
+  # shellcheck disable=SC1090
+  source "$CONFIG_FILE"
+fi
+BRIEFING_CHANNELS="${AI_TREND_DAILY_CHANNELS:-feishu,openclaw-weixin}"
 LOG_DIR="$BASE_DIR/logs"
 LOG_FILE="$LOG_DIR/ai-trend-daily.log"
 TMP_JSON="$(mktemp)"
@@ -41,12 +48,14 @@ PROMPT=$(cat <<'EOF'
 2. 当前北京时间：__NOW__。
 3. 为今天（__TODAY__）生成一份固定日报，不允许返回 NO_REPLY。
 4. 即使今天没有足够强的高价值 signal，也必须生成日报，并在“已完成”里明确写“今日无强 signal”；不要伪造发现。
-5. 标题必须是：AI 巡检日报 - __TODAY__。
-6. 必须包含且只包含这四个一级部分：已完成、候选、低置信度、待验证。
-7. 每个部分都可以为空，但不能省略；没有内容时写“无”。
-8. 优先给出 0-2 条真正值得看的信号；证据不足就降级，不要硬凑。
-9. 最终只返回日报正文，不要过程说明，不要发送动作。
-10. 如果你需要运行本地命令，只能使用当前机器可用的基础命令；不要调用 `python`，只假设 `python3` 可能可用。
+5. 没有强 signal 时，必须补 `一条 thesis 反证`、`一个候选机会拆解` 或 `一组关键证据缺口`，不能只停在“今天没大事”。
+6. 输出目标是创业决策增量，不是行业新闻整理。
+7. 标题必须是：AI 巡检日报 - __TODAY__。
+8. 必须包含且只包含这四个一级部分：已完成、候选、低置信度、待验证。
+9. 每个部分都可以为空，但不能省略；没有内容时写“无”。
+10. 优先给出 0-2 条真正值得看的信号；证据不足就降级，不要硬凑。
+11. 最终只返回日报正文，不要过程说明，不要发送动作。
+12. 如果你需要运行本地命令，只能使用当前机器可用的基础命令；不要调用 `python`，只假设 `python3` 可能可用。
 EOF
 )
 PROMPT="${PROMPT//__TODAY__/$TODAY}"
@@ -141,7 +150,7 @@ if [ -z "$MESSAGE" ]; then
   exit 1
 fi
 
-"$DUAL_SENDER" \
+DELIVERY_CHANNELS="$BRIEFING_CHANNELS" "$DUAL_SENDER" \
   --message-file "$OUTPUT_FILE" \
   --state-file "$SEND_STATE_FILE" \
   --state-value "$TODAY" \
@@ -153,7 +162,7 @@ if [ -x "$HANDOFF_UPDATER" ]; then
     --source "ai-trend-daily" \
     --status "delivered" \
     --content-file "$OUTPUT_FILE" \
-    --note "AI 巡检日报已按默认双发链路投递，微信优先。dedupe=$TODAY" >> "$LOG_FILE" 2>&1; then
+    --note "AI 巡检日报已按当前通道配置投递。channels=$BRIEFING_CHANNELS dedupe=$TODAY" >> "$LOG_FILE" 2>&1; then
     log "warn: failed to update channel handoff"
   fi
 fi

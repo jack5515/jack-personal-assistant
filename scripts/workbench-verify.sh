@@ -2,31 +2,37 @@
 set -euo pipefail
 
 BASE_DIR="/Users/jyxc/.openclaw/workspace"
-CAPABILITY="${1:-all}"
+
+if [ "$#" -eq 0 ]; then
+  set -- all
+fi
 
 usage() {
   cat <<'EOF'
 Usage:
-  workbench-verify.sh [all|docs|dual-channel|lenny|stock-finance|ai-trend|ai-trend-daily|vision|summary]
+  workbench-verify.sh [all|docs|dual-channel|lenny|stock-finance|ai-trend|ai-trend-daily|vision|summary|wechat-summary]...
 
 Non-destructive checks for the current assistant workbench.
 EOF
 }
 
-case "$CAPABILITY" in
-  all|docs|dual-channel|lenny|stock-finance|ai-trend|ai-trend-daily|vision|summary)
-    ;;
-  -h|--help)
-    usage
-    exit 0
-    ;;
-  *)
-    usage >&2
-    exit 1
-    ;;
-esac
+for capability in "$@"; do
+  case "$capability" in
+    all|docs|dual-channel|lenny|stock-finance|ai-trend|ai-trend-daily|vision|summary|wechat-summary)
+      ;;
+    -h|--help)
+      usage
+      exit 0
+      ;;
+    *)
+      usage >&2
+      exit 1
+      ;;
+  esac
+done
 
-PYTHONPATH="$BASE_DIR${PYTHONPATH:+:$PYTHONPATH}" python3 - "$CAPABILITY" <<'PY'
+for capability in "$@"; do
+PYTHONPATH="$BASE_DIR${PYTHONPATH:+:$PYTHONPATH}" python3 - "$capability" <<'PY'
 import sys
 from workbench_core.verify import VerifyError, verify
 
@@ -39,3 +45,4 @@ except VerifyError as exc:
 
 print(f'verify ok: {capability}')
 PY
+done

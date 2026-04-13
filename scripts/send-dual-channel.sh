@@ -12,13 +12,16 @@ if [ -f "$CONFIG_FILE" ]; then
 fi
 FEISHU_TARGET="${FEISHU_TARGET:-ou_14ab29b1500a6fa083003a19e543712b}"
 WEIXIN_TARGET="${WEIXIN_TARGET:-o9cq804e6C58_WBPHvn6QUyvFp1s@im.wechat}"
-WEIXIN_ACCOUNT_ID="${WEIXIN_ACCOUNT_ID:-891c59a688e1-im-bot}"
+WEIXIN_ACCOUNT_ID="${WEIXIN_ACCOUNT_ID:-88052f3acc0f-im-bot}"
+DELIVERY_CHANNELS="${DELIVERY_CHANNELS:-feishu,openclaw-weixin}"
 DRY_RUN="${DRY_RUN:-0}"
 MESSAGE_FILE=""
 STATE_FILE=""
 STATE_VALUE=""
 LOG_FILE=""
 LABEL="dual-channel"
+SEND_FEISHU=0
+SEND_WEIXIN=0
 
 usage() {
   cat <<'EOF'
@@ -35,6 +38,34 @@ EOF
 log() {
   local message="$1"
   printf '[%s] %s\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$message" >> "$LOG_FILE"
+}
+
+parse_delivery_channels() {
+  local item=""
+  local parts=()
+
+  IFS=',' read -r -a parts <<< "$DELIVERY_CHANNELS"
+  for item in "${parts[@]}"; do
+    item="$(printf '%s' "$item" | tr -d '[:space:]')"
+    [ -n "$item" ] || continue
+    case "$item" in
+      feishu)
+        SEND_FEISHU=1
+        ;;
+      weixin|openclaw-weixin)
+        SEND_WEIXIN=1
+        ;;
+      *)
+        echo "Unknown delivery channel: $item" >&2
+        exit 1
+        ;;
+    esac
+  done
+
+  if [ "$SEND_FEISHU" != "1" ] && [ "$SEND_WEIXIN" != "1" ]; then
+    echo "No delivery channels enabled; set DELIVERY_CHANNELS to feishu, openclaw-weixin, or both" >&2
+    exit 1
+  fi
 }
 
 send_channel() {
@@ -179,7 +210,19 @@ if [ -z "$MESSAGE" ]; then
   exit 1
 fi
 
+parse_delivery_channels
+
 STATUS=0
-process_channel "feishu" "$FEISHU_TARGET" "${STATE_FILE}.feishu" || STATUS=1
-process_channel "openclaw-weixin" "$WEIXIN_TARGET" "${STATE_FILE}.weixin" || STATUS=1
+if [ "$SEND_FEISHU" = "1" ]; then
+  process_channel "feishu" "$FEISHU_TARGET" "${STATE_FILE}.feishu" || STATUS=1
+else
+  log "skip: $LABEL feishu disabled by DELIVERY_CHANNELS=$DELIVERY_CHANNELS"
+fi
+
+if [ "$SEND_WEIXIN" = "1" ]; then
+  process_channel "openclaw-weixin" "$WEIXIN_TARGET" "${STATE_FILE}.weixin" || STATUS=1
+else
+  log "skip: $LABEL openclaw-weixin disabled by DELIVERY_CHANNELS=$DELIVERY_CHANNELS"
+fi
+
 exit "$STATUS"

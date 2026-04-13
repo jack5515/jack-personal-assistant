@@ -7,9 +7,16 @@ BASE_DIR="/Users/jyxc/.openclaw/workspace"
 OPENCLAW_BIN="${OPENCLAW_BIN:-/opt/homebrew/bin/openclaw}"
 DUAL_SENDER="$BASE_DIR/scripts/send-dual-channel.sh"
 HANDOFF_UPDATER="$BASE_DIR/scripts/update-channel-handoff.sh"
+CONFIG_FILE="${CONFIG_FILE:-$BASE_DIR/config/channel-targets.env}"
 OUTPUT_FILE="$BASE_DIR/workfiles/stock-finance-daily-latest.md"
 RUN_STATE_FILE="$BASE_DIR/memory/stock-finance-daily-state.json"
 SEND_STATE_FILE="$BASE_DIR/memory/stock-finance-daily-send-state.txt"
+if [ -f "$CONFIG_FILE" ]; then
+  # Keep cron/manual runs aligned with the workspace channel defaults.
+  # shellcheck disable=SC1090
+  source "$CONFIG_FILE"
+fi
+BRIEFING_CHANNELS="${STOCK_FINANCE_DAILY_CHANNELS:-feishu}"
 LOG_DIR="$BASE_DIR/logs"
 LOG_FILE="$LOG_DIR/stock-finance-daily.log"
 TMP_JSON="$(mktemp)"
@@ -134,7 +141,7 @@ with log_file.open("a") as fh:
     fh.write(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] generated: {output_path}\n")
 PY
 
-"$DUAL_SENDER" \
+DELIVERY_CHANNELS="$BRIEFING_CHANNELS" "$DUAL_SENDER" \
   --message-file "$OUTPUT_FILE" \
   --state-file "$SEND_STATE_FILE" \
   --state-value "$TODAY" \
@@ -146,7 +153,7 @@ if [ -x "$HANDOFF_UPDATER" ]; then
     --source "stock-finance-daily" \
     --status "delivered" \
     --content-file "$OUTPUT_FILE" \
-    --note "股票财经晨报已双发到飞书和微信。dedupe=$TODAY" >> "$LOG_FILE" 2>&1; then
+    --note "股票财经晨报已按当前通道配置投递。channels=$BRIEFING_CHANNELS dedupe=$TODAY" >> "$LOG_FILE" 2>&1; then
     log "warn: failed to update channel handoff"
   fi
 fi
